@@ -1,21 +1,26 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
-
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+// shared: {
+//   faker: {
+//     singleton: true,
+//   },
+// }
 module.exports = {
-  mode: 'development',
+  mode: "development",
   devServer: {
     port: 8081,
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'products',
-      filename: 'remoteEntry.js',
+      name: "products",
+      filename: "remoteEntry.js",
       exposes: {
-        './ProductsIndex': './src/index',
+        "./ProductsIndex": "./src/bootstrap",
       },
+      shared: ["faker"],
     }),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: "./public/index.html",
     }),
   ],
 };
